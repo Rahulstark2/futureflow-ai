@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 116, 139, 0.3) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.3);
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: rgba(129, 140, 248, 0.3);
+    color: #fff;
+  }
+}
+
+@keyframes checkmarkIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+
+  /* ── Glass panels ────────────────────────────────── */
+  .glass-panel {
+    @apply bg-surface border border-white/[0.06] rounded-2xl shadow-glass;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-panel-elevated {
+    @apply bg-surface-elevated border border-white/[0.08] rounded-2xl shadow-glass;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ── Gradient text ───────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.3), rgba(167, 139, 250, 0.1), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── Buttons ─────────────────────────────────────── */
+  .btn-primary {
+    @apply px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300;
+    @apply bg-gradient-to-r from-indigo-500 to-violet-500;
+    @apply hover:from-indigo-400 hover:to-violet-400 hover:shadow-glow-md;
+    @apply active:scale-[0.97];
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 rounded-xl font-medium text-sm text-slate-300 transition-all duration-200;
+    @apply hover:bg-white/[0.06] hover:text-white;
+    @apply active:scale-[0.97];
+  }
+
+  /* ── Responsibility badges (small pills) ─────────── */
+  .badge-ai {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-emerald-500/15 text-emerald-400 border border-emerald-500/20;
+  }
+
+  .badge-automation {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-cyan-500/15 text-cyan-400 border border-cyan-500/20;
+  }
+
+  .badge-robotics {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-indigo-500/15 text-indigo-400 border border-indigo-500/20;
+  }
+
+  .badge-hybrid {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-amber-500/15 text-amber-400 border border-amber-500/20;
+  }
+
+  .badge-human {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-slate-500/15 text-slate-400 border border-slate-500/20;
+  }
+
+  /* ── Transition-type badges ──────────────────────── */
+  .badge-eliminated {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-rose-500/10 text-rose-400 border border-rose-500/15;
+  }
+
+  .badge-consolidated {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-blue-500/10 text-blue-400 border border-blue-500/15;
+  }
+
+  .badge-new {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider;
+    @apply bg-violet-500/10 text-violet-400 border border-violet-500/15;
+  }
+
+  /* ── Severity badges ─────────────────────────────── */
+  .badge-severity-critical {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-bold uppercase;
+    @apply bg-red-500/15 text-red-400;
+  }
+
+  .badge-severity-high {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-bold uppercase;
+    @apply bg-orange-500/15 text-orange-400;
+  }
+
+  .badge-severity-medium {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-bold uppercase;
+    @apply bg-yellow-500/15 text-yellow-400;
+  }
+
+  .badge-severity-low {
+    @apply px-2 py-0.5 rounded-full text-[10px] font-bold uppercase;
+    @apply bg-blue-500/15 text-blue-400;
+  }
+
+  /* ── Transition row ──────────────────────────────── */
+  .transition-row {
+    @apply grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-0;
+    @apply border-b border-white/[0.04] py-3 px-2;
+    @apply transition-colors duration-150 cursor-pointer;
+    @apply hover:bg-white/[0.02];
+  }
+
+  .transition-row:last-child {
+    @apply border-b-0;
+  }
+
+  /* ── Column header labels ────────────────────────── */
+  .column-header {
+    @apply text-[11px] font-semibold uppercase tracking-widest text-slate-500;
+  }
+
+  .column-subheader {
+    @apply text-[11px] text-slate-600 font-normal tracking-normal mt-0.5;
+  }
+
+  /* ── Connecting arrow ────────────────────────────── */
+  .connect-arrow {
+    @apply hidden lg:flex items-center justify-center px-3 text-slate-600;
+  }
+
+  .connect-arrow-vertical {
+    @apply flex lg:hidden items-center justify-center py-2 text-slate-600;
+  }
+
+  /* ── Drawer ──────────────────────────────────────── */
+  .drawer-overlay {
+    @apply fixed inset-0 z-40 bg-black/40;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .drawer-panel {
+    @apply fixed top-0 right-0 z-50 h-full w-full max-w-md;
+    @apply bg-surface-solid border-l border-white/[0.06] shadow-glass;
+    @apply overflow-y-auto;
+    animation: slideInRight 0.2s ease-out forwards;
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /* ── Compact metric ──────────────────────────────── */
+  .metric-compact {
+    @apply flex flex-col items-center;
+  }
+
+  .metric-compact-value {
+    @apply text-lg font-bold text-white tabular-nums leading-none;
+  }
+
+  .metric-compact-label {
+    @apply text-[10px] font-medium text-slate-500 uppercase tracking-wider mt-1;
+  }
+
+  /* ── Empty cell placeholder ──────────────────────── */
+  .cell-empty {
+    @apply flex items-center justify-center text-slate-600 text-xs italic;
+  }
+
+  /* ── Confidence badges ───────────────────────────── */
+  .confidence-high {
+    @apply bg-emerald-500/15 text-emerald-400 border-emerald-500/30;
+  }
+
+  .confidence-medium {
+    @apply bg-yellow-500/15 text-yellow-400 border-yellow-500/30;
+  }
+
+  .confidence-low {
+    @apply bg-blue-500/15 text-blue-400 border-blue-500/30;
+  }
+
+  /* ── Linear Cube Assembly Animation ─────────────── */
+  @keyframes cubeDrop {
+    0% {
+      transform: translate(9.5px, -19.2px) rotate(8deg);
+      opacity: 0.9;
+    }
+
+    20% {
+      transform: translate(11px, -21px) rotate(9.5deg);
+    }
+
+    60% {
+      transform: translate(1px, -2px) rotate(1deg);
+    }
+
+    80% {
+      transform: translate(-0.8px, 1.2px) rotate(-0.5deg);
+    }
+
+    92% {
+      transform: translate(0.2px, -0.3px) rotate(0.1deg);
+    }
+
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  .animate-cube-drop {
+    transform-origin: 66px 24px;
+    animation: cubeDrop 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.35s forwards;
+    will-change: transform;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "futureflow-ai",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

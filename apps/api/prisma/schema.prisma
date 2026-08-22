@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Process {
+  id          String   @id @default(uuid())
+  name        String
+  industry    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  activities        Activity[]
+  problems          Problem[]
+  opportunities     Opportunity[]
+  futureActivities  FutureActivity[]
+  benefits          Benefit[]
+  comparisonCaches  ProcessComparisonCache[]
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  processId String
+  name      String
+  sequence  Int
+  type      String   // "current" | "future"
+
+  process       Process       @relation(fields: [processId], references: [id], onDelete: Cascade)
+  opportunities Opportunity[]
+}
+
+model Problem {
+  id          String @id @default(uuid())
+  processId   String
+  description String
+  severity    String // "low" | "medium" | "high" | "critical"
+
+  process Process @relation(fields: [processId], references: [id], onDelete: Cascade)
+}
+
+model Opportunity {
+  id                  String @id @default(uuid())
+  processId           String
+  activityId          String
+  opportunity         String
+  technology          String
+  automationPotential String
+
+  process  Process  @relation(fields: [processId], references: [id], onDelete: Cascade)
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+}
+
+model FutureActivity {
+  id                 String  @id @default(uuid())
+  processId          String
+  activityIdRef      String?
+  newActivityName    String
+  roleResponsibility String  // "human" | "ai" | "automation" | "robotics" | "hybrid"
+  sequence           Int
+
+  process Process @relation(fields: [processId], references: [id], onDelete: Cascade)
+}
+
+model Benefit {
+  id          String @id @default(uuid())
+  processId   String
+  benefitType String // "cost" | "speed" | "quality" | "compliance"
+  description String
+  confidence  String @default("medium") // "low" | "medium" | "high"
+  assumptions String @default("Requires baseline enterprise metrics for precise ROI quantification.")
+
+  process Process @relation(fields: [processId], references: [id], onDelete: Cascade)
+}
+
+model ProcessComparisonCache {
+  id          String   @id @default(uuid())
+  processId   String
+  generatedAt DateTime @default(now())
+
+  process Process @relation(fields: [processId], references: [id], onDelete: Cascade)
+}
