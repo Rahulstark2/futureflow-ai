@@ -74,3 +74,37 @@ The pipeline interacts strictly through `generateStructured(prompt, schema)` def
 ## 📚 Documentation
 - [Architecture & Sequence Flow](docs/architecture.md)
 - [Data Model & ER Diagram](docs/data-model.md)
+
+---
+
+## 📦 Third-Party Libraries & Licenses
+
+All third-party open-source libraries used in this project are listed below with their respective software licenses:
+
+| Layer / Package | Library | License | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Backend API** | `express` | MIT | HTTP server and REST routing |
+| | `@google/genai` | Apache-2.0 | Official Google GenAI SDK for Gemini LLM |
+| | `@prisma/client` / `prisma` | Apache-2.0 | Type-safe ORM & database migrations |
+| | `zod` | MIT | Runtime schema validation & structured JSON parsing |
+| | `cors` | MIT | Cross-Origin Resource Sharing middleware |
+| | `dotenv` | BSD-2-Clause | Environment variable management |
+| | `tsx` | MIT | TypeScript runtime execution for development & scripts |
+| **Web Frontend** | `react` / `react-dom` | MIT | UI component library and virtual DOM |
+| | `tailwindcss` | MIT | Utility-first CSS styling & design system |
+| | `vite` | MIT | Next-generation frontend bundler & dev server |
+| | `@vitejs/plugin-react` | MIT | React Fast Refresh Vite plugin |
+| | `postcss` / `autoprefixer` | MIT | CSS transformations & vendor prefixing |
+| **Infrastructure** | `PostgreSQL 16` | PostgreSQL License (Permissive) | Relational persistence store |
+| | `Nginx` | 2-Clause BSD | Static frontend web server & reverse proxy |
+| | `Node.js 20` | MIT / Node License | JavaScript runtime environment |
+
+---
+
+## 🤖 AI Coding Assistant Disclosure
+
+In compliance with challenge transparency guidelines:
+
+- **AI Coding Assistants Used**: Google DeepMind Antigravity / Gemini CLI coding assistants were utilized during the development of this project for pair programming, architecture design reviews, schema drafting, and test script synthesis.
+- **Human Oversight & Verification**: All domain logic (the 5-step re-engineering pipeline, enterprise ROI benefit calculation heuristics, deterministic schema validation safeguards, and database normalization) was reviewed, audited, and tested for enterprise reliability and correctness.
+- **Model Decoupling**: Application code interacts with AI capabilities strictly through standard typed provider interfaces (`LLMProvider`), ensuring vendor neutrality and modularity.
