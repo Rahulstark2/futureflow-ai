@@ -61,6 +61,8 @@ CREATE TABLE "Benefit" (
     "processId" TEXT NOT NULL,
     "benefitType" TEXT NOT NULL,
     "description" TEXT NOT NULL,
+    "confidence" TEXT NOT NULL DEFAULT 'medium',
+    "assumptions" TEXT NOT NULL DEFAULT 'Requires baseline enterprise metrics for precise ROI quantification.',
 
     CONSTRAINT "Benefit_pkey" PRIMARY KEY ("id")
 );
