@@ -41,6 +41,8 @@ Create `.env` in `apps/api/.env`:
 PORT=4000
 DATABASE_URL="postgresql://username:password@localhost:5432/futureflow?schema=public"
 LLM_PROVIDER="gemini"
+# Choose any Gemini model (e.g. gemini-2.5-flash, gemini-2.0-flash, gemini-1.5-pro, etc.)
+GEMINI_MODEL="gemini-2.5-flash"
 GEMINI_API_KEY="your-gemini-api-key-here"
 ```
 
@@ -54,14 +56,6 @@ pnpm --filter @futureflow/api prisma:migrate
 
 # Start Backend (:4000) and Frontend (:3000)
 pnpm dev
-```
-
----
-
-## 🧪 Smoke Testing the "Surprise Process"
-To test the pipeline on a novel process via CLI:
-```bash
-npx tsx scripts/test-surprise-process.ts
 ```
 
 ---
