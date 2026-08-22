@@ -4,17 +4,39 @@ FutureFlow AI is an enterprise AI solution designed for the Modus Enterprise AI 
 
 ---
 
-## 🚀 Quickstart Guide
+## ⚡ Single-Command Evaluation (Docker Compose)
+
+The entire stack (PostgreSQL database + Express API + Nginx Web Frontend) runs with one command.
+
+### 1. Configure Environment
+```bash
+cp .env.example .env
+```
+Edit `.env` and set your `GEMINI_API_KEY`:
+```env
+GEMINI_API_KEY="your-gemini-api-key"
+```
+
+### 2. Start the Stack
+```bash
+docker compose up --build
+```
+- Web UI: **[http://localhost:3000](http://localhost:3000)**
+- Backend API: **[http://localhost:4000/health](http://localhost:4000/health)**
+- Schema migrations run automatically on startup via `prisma migrate deploy`.
+
+---
+
+## 🛠️ Local Development Setup (Manual)
 
 ### 1. Prerequisites
 - Node.js >= 18
 - pnpm (`npm install -g pnpm`)
-- PostgreSQL instance running (or local / cloud Postgres URL)
-- Gemini API Key ([Google AI Studio](https://aistudio.google.com/))
+- PostgreSQL database
+- Gemini API Key
 
-### 2. Environment Setup
-Create `.env` inside `futureflow-ai/apps/api/.env` (or copy from `.env.example`):
-
+### 2. Environment Configuration
+Create `.env` in `apps/api/.env`:
 ```bash
 PORT=4000
 DATABASE_URL="postgresql://username:password@localhost:5432/futureflow?schema=public"
@@ -22,21 +44,17 @@ LLM_PROVIDER="gemini"
 GEMINI_API_KEY="your-gemini-api-key-here"
 ```
 
-### 3. Install & Setup Database
+### 3. Install & Run
 ```bash
-# From futureflow-ai root:
+# Install dependencies across workspace
 pnpm install
 
 # Run database migrations
 pnpm --filter @futureflow/api prisma:migrate
-```
 
-### 4. Run Locally
-```bash
-# Start both Backend API (:4000) and Frontend Web (:3000):
+# Start Backend (:4000) and Frontend (:3000)
 pnpm dev
 ```
-Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ---
 
@@ -49,7 +67,7 @@ npx tsx scripts/test-surprise-process.ts
 ---
 
 ## 🔄 LLM Provider Flexibility
-If API access changes, switch providers by updating the `LLMProvider` interface in `apps/api/src/llm/`. The pipeline interacts strictly through `generateStructured(prompt, schema)` and is completely decoupled from the underlying model vendor.
+The pipeline interacts strictly through `generateStructured(prompt, schema)` defined in `apps/api/src/llm/provider.ts` and is decoupled from the underlying vendor.
 
 ---
 
