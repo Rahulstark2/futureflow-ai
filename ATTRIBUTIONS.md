@@ -24,6 +24,6 @@
 
 ## 🤖 AI Coding Assistant Disclosure
 
-- **Tools Used**: Google DeepMind Antigravity / Gemini CLI coding assistants were utilized for pair programming, architectural ideation, schema formulation, and automated test scaffolding.
+- **Tools Used**: Google Antigravity was utilized during the development of this project for pair programming.
 - **Verification & Review**: All pipeline logic, Business Process Reengineering heuristics, Zod normalization schemas, and database transactions were authored, reviewed, and audited with human verification.
 - **Architecture**: AI integrations are strictly encapsulated behind the provider interface `LLMProvider`, allowing modular swapping of model backends.

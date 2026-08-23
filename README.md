@@ -99,6 +99,6 @@ All third-party open-source libraries used in this project are listed below with
 
 In compliance with challenge transparency guidelines:
 
-- **AI Coding Assistants Used**: Google DeepMind Antigravity / Gemini CLI coding assistants were utilized during the development of this project for pair programming, architecture design reviews, schema drafting, and test script synthesis.
+- **AI Coding Assistants Used**: Google Antigravity was utilized during the development of this project for pair programming.
 - **Human Oversight & Verification**: All domain logic (the 5-step re-engineering pipeline, enterprise ROI benefit calculation heuristics, deterministic schema validation safeguards, and database normalization) was reviewed, audited, and tested for enterprise reliability and correctness.
 - **Model Decoupling**: Application code interacts with AI capabilities strictly through standard typed provider interfaces (`LLMProvider`), ensuring vendor neutrality and modularity.
