@@ -72,5 +72,5 @@ erDiagram
 
 ## Schema Justification
 - **Traceability**: `Opportunity.activityId` maps every AI innovation directly to the source manual step.
-- **Responsibility Classification**: `FutureActivity.roleResponsibility` is strictly enforced as `human | ai | hybrid`.
+- **Responsibility Classification**: `FutureActivity.roleResponsibility` is strictly enforced as `human | ai | automation | robotics | hybrid`.
 - **Relational Integrity**: Foreign key constraints and cascade deletes ensure clean re-runs without orphaned entities.
