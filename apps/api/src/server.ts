@@ -22,8 +22,10 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.listen(PORT, () => {
-  console.log(`[API] Server running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL && process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`[API] Server running on http://localhost:${PORT}`);
+  });
+}
 
 export default app;
