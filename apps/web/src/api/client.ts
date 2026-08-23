@@ -1,4 +1,11 @@
-const BASE_URL = "/api";
+function getBaseUrl(): string {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return "/api";
+  const clean = envUrl.trim().replace(/\/+$/, "");
+  return clean.endsWith("/api") ? clean : `${clean}/api`;
+}
+
+const BASE_URL = getBaseUrl();
 
 export interface ProcessSummary {
   id: string;
@@ -85,15 +92,29 @@ export interface AnalysisStatusResponse {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { "Content-Type": "application/json" },
-    ...options,
-  });
+  const url = `${BASE_URL}${path}`;
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      ...options,
+    });
+  } catch (netErr) {
+    throw new Error(`Cannot reach backend at ${url}. Check server is running. (${(netErr as Error).message})`);
+  }
 
-  const json = await res.json();
+  const text = await res.text();
+  let json: any;
+  try {
+    json = text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(
+      `Server returned ${res.status} (${res.statusText}) instead of JSON:\n${text.slice(0, 150)}`
+    );
+  }
 
   if (!res.ok || !json.success) {
-    throw new Error(json.error || json.message || "Request failed");
+    throw new Error(json.error || json.message || `Request failed with HTTP status ${res.status}`);
   }
 
   return json.data as T;
